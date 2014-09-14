@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Icons/filesave-48.png</file>
+        <file>Icons/Box habanos open.png</file>
+        <file>Icons/box_open.png</file>
+        <file>Icons/fileopen.png</file>
+        <file>Icons/Gnome-Application-Exit.png</file>
+        <file>Icons/Gnome-Zoom-In.png</file>
+        <file>Icons/Gnome-Zoom-Out.png</file>
+        <file>Icons/Help.png</file>
+        <file>Icons/run-icon.png</file>
+        <file>Icons/Ballon-white.ico</file>
+        <file>Icons/Developer Black_128.png</file>
+        <file>Icons/Eraser-icon.png</file>
+        <file>Icons/blue-rectangle-icone-8818-128.png</file>
+        <file>Icons/128x128-18-2120.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix2">
+        <file>Buttons/down.png</file>
+        <file>Buttons/left.png</file>
+        <file>Buttons/right.png</file>
+        <file>Buttons/up.png</file>
+    </qresource>
+</RCC>
