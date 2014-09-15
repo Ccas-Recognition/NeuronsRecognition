@@ -11,7 +11,7 @@
 #include <QSqlQuery>
 #include <QKeyEvent>
 #include <QDebug>
-#include "../../ExcelFormat_src/BasicExcel.hpp"
+#include "ExcelFormat_src/BasicExcel.hpp"
 
 #include <fstream>
 #include <stdio.h>
@@ -42,7 +42,7 @@ MainWindow :: MainWindow (QWidget *parent) :
     mainImage->setFocus();
 
     recognizer = new neuron_recognition();
-    process_file("main_image.bmp"); //DEBUG
+    process_file("ImageExample/main_image.bmp"); //DEBUG
 }
 
 MainWindow :: ~MainWindow ()
