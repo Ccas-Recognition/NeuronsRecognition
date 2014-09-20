@@ -42,7 +42,7 @@ MainWindow :: MainWindow (QWidget *parent) :
     mainImage->setFocus();
 
     recognizer = new neuron_recognition();
-    process_file("ImageExamples/main_image.bmp"); //DEBUG
+    //process_file("ImageExamples/main_image.bmp"); //DEBUG
 }
 
 MainWindow :: ~MainWindow ()

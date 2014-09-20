@@ -28,6 +28,7 @@ public:
 
     static int str2int( char *str_num );
     static string int2str( int num );
+    void process_file ( QString );
 private slots:
 	//Функция, реализующая выбор и загрузку изображения в программу.
     void open_file ();
@@ -42,7 +43,7 @@ protected:
     void resizeEvent( QResizeEvent * );
     void keyPressEvent(QKeyEvent *keyevent);
     void keyReleaseEvent(QKeyEvent *keyevent);
-    void process_file ( QString );
+
     void save_to_file( );
     void save_to_xls( );
 private:
