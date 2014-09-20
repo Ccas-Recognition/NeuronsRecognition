@@ -53,6 +53,9 @@ void myImage::setDetectionData(DetectionData *data) {
         for (int j = 0; j < picture->height(); ++j)
             mask_image->setPixel (i, j, qRgb (122, 122, 122));
 
+    w = picture->width () * zoom_koeff;
+    h = picture->height () * zoom_koeff;
+    zoom_pict = picture->scaled (w, h);
     update();
 }
 

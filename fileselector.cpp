@@ -25,6 +25,7 @@ void FileSelector::setMainWindow(MainWindow * w) {
 
     addFile(q); addFile(q2);
     processFile(q);
+    mainWindow->process_file(q);
 }
 
 void FileSelector::on_actionOpen_Folder_triggered()
@@ -77,7 +78,7 @@ void FileSelector::on_actionChoose_file_triggered()
 void FileSelector::processFile(QString path) {
     if (mainWindow) {
         mainWindow->setDetectionData(& (detectionMap[path.toStdString()]));
-        mainWindow->process_file(path);
+        //mainWindow->process_file(path);
     }
 }
 
