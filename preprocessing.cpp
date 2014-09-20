@@ -47,7 +47,7 @@ void preprocessing :: load_image( const char *image_name )
 
 void preprocessing :: aFilter( char *image_name )
 {
-	string filt_query = "dlls\\aFilter.exe ";
+    string filt_query = "dlls\\aFilter.exe ";
 	filt_query += image_name;
 	//filt_query += "tmp.bmp";
 	system( filt_query.c_str() );
@@ -58,11 +58,14 @@ void preprocessing :: do_prep( const char *image_name, Mat& output_image )
 	load_image( image_name );
 	unsharped_mask( output_image );
 	close_reconstruction( output_image );
-	//imwrite( "D:\\Neurons\\proc_image.bmp", output_image );
+    imwrite( "proc_image1.bmp", output_image );
     thresholding( output_image );
+    imwrite( "proc_image2.bmp", output_image );
 	Mat se = getStructuringElement( cv :: MORPH_ELLIPSE, cv :: Size( 5, 5 ));
 	erode ( output_image, output_image, se );
+    imwrite( "proc_image3.bmp", output_image );
 	dilate( output_image, output_image, se );
+    imwrite( "proc_image4.bmp", output_image );
 	imwrite( "bw.bmp", output_image );
 }
 

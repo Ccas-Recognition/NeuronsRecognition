@@ -2,6 +2,7 @@
 #include "mainwindow.h"
 #include "ui_fileselector.h"
 #include <QFileDialog>
+#include <QKeyEvent>
 #include <QListWidgetItem>
 
 FileSelector::FileSelector(QWidget *parent) :
@@ -91,4 +92,10 @@ void FileSelector::addFile(QString path)
 {
     ui->listWidget->addItem(path);
     detectionMap[path.toStdString()] = DetectionData(path);
+}
+
+void FileSelector :: keyPressEvent(QKeyEvent *keyevent)
+{
+    if(keyevent->key() == Qt::Key_Escape)
+        QApplication::quit();
 }

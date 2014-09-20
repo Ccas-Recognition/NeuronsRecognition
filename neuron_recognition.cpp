@@ -68,12 +68,12 @@ vector< Mat >& neuron_recognition :: recognize( const char *input_file, Mat &pro
 	main_image = imread( input_file, 0 );
     if ( type == 1 ) {
 		clusters = proc->get_conn( input_file, proc_image );
-		imwrite( "D:\\Neurons\\bw.bmp", proc_image );
+        imwrite( "bw.bmp", proc_image );
 	}
 	else if ( type == 2 ) {
 		//proc->do_prep( input_file, proc_image );
 		proc->aFilter(( char *) input_file );
-		proc_image = imread( "tmp.bmp", 0 );
+        proc_image = imread( "dlls\\tmp.bmp", 0 );
 		proc->thresholding( proc_image, 247 );
 		//imwrite( "aFilterImage.bmp", proc_image );
 		clusters = proc->get_conn( input_file, proc_image, true, false );
@@ -147,6 +147,16 @@ bool neuron_recognition :: check_core( cluster& sample, cluster& cluster_tmp, Ma
 bool neuron_recognition :: isNeuron( QRect& rectangle )
 {
     //imwrite( "./main_image.bmp", main_image );
+    int x1 = rectangle.x();
+    int y1 = rectangle.y();
+    int x2 = rectangle.x() + rectangle.width();
+    int y2 = rectangle.y() + rectangle.height();
+
+    if( x1 < 0 || x1 >= main_image.cols || y1 < 0 || y1 >= main_image.rows )
+        return false;
+    if( x2 < 0 || x2 >= main_image.cols || y2 < 0 || y2 >= main_image.rows )
+        return false;
+
     Mat resized_image = Mat( main_image, Rect( rectangle.x(), 
                                                rectangle.y(), 
                                                rectangle.width(), 

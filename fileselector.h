@@ -30,10 +30,9 @@ private slots:
     void on_actionChoose_file_triggered();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
 protected:
     void addFile(QString path);
-
+    void keyPressEvent(QKeyEvent *keyevent);
 private:
     Ui::FileSelector *ui;
     MainWindow * mainWindow;

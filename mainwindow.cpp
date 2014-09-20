@@ -49,7 +49,10 @@ MainWindow :: MainWindow (QWidget *parent) :
 void MainWindow :: setDetectionData(DetectionData *data){
    detectionData = data;
    if (data != NULL)
-    mainImage->setDetectionData(data);
+   {
+       file_name = data->filePath;
+       mainImage->setDetectionData(data);
+   }
 }
 
 MainWindow :: ~MainWindow ()
@@ -268,6 +271,8 @@ void MainWindow :: keyPressEvent(QKeyEvent *keyevent)
     //qDebug() << "keyPressEvent " << index++;
     if(keyevent->key() == Qt::Key_Space)
         mainImage->SetViewMode(true);
+    if(keyevent->key() == Qt::Key_Escape)
+        QApplication::quit();
 }
 
 void MainWindow :: keyReleaseEvent(QKeyEvent *keyevent)
