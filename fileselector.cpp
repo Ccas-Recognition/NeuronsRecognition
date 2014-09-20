@@ -9,11 +9,6 @@ FileSelector::FileSelector(QWidget *parent) :
     ui(new Ui::FileSelector)
 {
     ui->setupUi(this);
-
-    QString q = "ImageExamples/main_image.bmp";
-
-    addFile(q);
-    processFile(q);
 }
 
 FileSelector::~FileSelector()
@@ -23,6 +18,11 @@ FileSelector::~FileSelector()
 
 void FileSelector::setMainWindow(MainWindow * w) {
     mainWindow = w;
+
+    QString q = "ImageExamples/main_image.bmp";
+
+    addFile(q);
+    processFile(q);
 }
 
 void FileSelector::on_actionOpen_Folder_triggered()
