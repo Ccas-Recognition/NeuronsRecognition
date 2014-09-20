@@ -51,7 +51,8 @@ HEADERS  += mainwindow.h \
     TrainingSampleElement.h \
     ExcelFormat_src/BasicExcel.hpp \
     ExcelFormat_src/ExcelFormat.h \
-    fileselector.h
+    fileselector.h \
+    DetectionData.h
 
 FORMS    += mainwindow.ui \
     fileselector.ui

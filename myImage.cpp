@@ -14,14 +14,11 @@
 #include <cmath>
 #include <fstream>
 
-myImage :: myImage (vector<QRect>& rects, vector<QRect>& old_rects, vector<int> &_colors, vector< vector< QPoint > >& bounds, QWidget *parent)
+myImage :: myImage (QWidget *parent)
     : QWidget (parent), x (100), y (100), draw_flag (false), limit_flag (true), view_flag( true ),
-      x_initial (0), y_initial (0), rectangles (rects), old_rectangles( old_rects ), colors( _colors ),
-        zoom_koeff (1.0), bot_x (0), bot_y (0), boundaries( bounds ),
-        r (0), g (0), b (0)
+      x_initial (0), y_initial (0), zoom_koeff (1.0), bot_x (0), bot_y (0), r (0), g (0), b (0)
 {
     picture = new QImage ("bloody.bmp");
-
 
     main_image = new QImage (*picture);
 
@@ -62,7 +59,7 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 
     painter.drawImage (0, 0, def_pict);
 
-	int old_size = old_rectangles.size ();
+    int old_size = detectionData->old_rectangles.size ();
 
 	QRect tmp_rect;
 	int x = 0, y = 0;
@@ -71,10 +68,10 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 	painter.setPen(QColor (0, 0, 255));
 
 	for (int i = 0; i < old_size; ++i) {
-		x = int ((old_rectangles[i].x () * zoom_koeff - bot_x));
-		y = int ((old_rectangles[i].y () * zoom_koeff - bot_y));
-		width = int (old_rectangles[i].width() * zoom_koeff);
-		height = int (old_rectangles[i].height () * zoom_koeff);
+        x = int ((detectionData->old_rectangles[i].x () * zoom_koeff - bot_x));
+        y = int ((detectionData->old_rectangles[i].y () * zoom_koeff - bot_y));
+        width = int (detectionData->old_rectangles[i].width() * zoom_koeff);
+        height = int (detectionData->old_rectangles[i].height () * zoom_koeff);
 		tmp_rect = QRect (x, y, width, height);
 
 		painter.drawRect (tmp_rect);
@@ -96,18 +93,18 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 		   rect = QRect (x_initial, y_initial, pre_width, pre_height);
            painter.drawRect (rect);
 	   }
-	   int size = rectangles.size ();
+       int size = detectionData->rectangles.size ();
 
 	   QRect tmp_rect;
 	   int x = 0, y = 0;
 	   int width = 0, height = 0;
 
 	  /* for (int i = 0; i < size; ++i) {
-		   if ( colors[ i ] == 1 ) {
-			   x = int ((rectangles[i].x () * zoom_koeff - bot_x));
-			   y = int ((rectangles[i].y () * zoom_koeff - bot_y));
-			   width = int (rectangles[i].width() * zoom_koeff);
-			   height = int (rectangles[i].height () * zoom_koeff);
+           if ( detectionData->colors[ i ] == 1 ) {
+               x = int ((detectionData->rectangles[i].x () * zoom_koeff - bot_x));
+               y = int ((detectionData->rectangles[i].y () * zoom_koeff - bot_y));
+               width = int (detectionData->rectangles[i].width() * zoom_koeff);
+               height = int (detectionData->rectangles[i].height () * zoom_koeff);
 			   tmp_rect = QRect (x, y, width, height);
 
 			   painter.drawRect (tmp_rect);
@@ -115,32 +112,32 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 	   }*/
 
 	   for (int i = 0; i < size; ++i) {
-		   if ( colors[ i ] == 2 ) {
+           if ( detectionData->colors[ i ] == 2 ) {
 			   painter.setPen(QColor (0, 255, 0));
-			   x = int ((rectangles[i].x () * zoom_koeff - bot_x));
-			   y = int ((rectangles[i].y () * zoom_koeff - bot_y));
-			   width = int (rectangles[i].width() * zoom_koeff);
-			   height = int (rectangles[i].height () * zoom_koeff);
+               x = int ((detectionData->rectangles[i].x () * zoom_koeff - bot_x));
+               y = int ((detectionData->rectangles[i].y () * zoom_koeff - bot_y));
+               width = int (detectionData->rectangles[i].width() * zoom_koeff);
+               height = int (detectionData->rectangles[i].height () * zoom_koeff);
 			   tmp_rect = QRect (x, y, width, height);
 
 			   painter.drawRect (tmp_rect);
 		   }
-		   else if ( colors[ i ] == 1 ) {
+           else if ( detectionData->colors[ i ] == 1 ) {
 			   painter.setPen(QColor (255, 0, 0));
-			   x = int ((rectangles[i].x () * zoom_koeff - bot_x));
-			   y = int ((rectangles[i].y () * zoom_koeff - bot_y));
-			   width = int (rectangles[i].width() * zoom_koeff);
-			   height = int (rectangles[i].height () * zoom_koeff);
+               x = int ((detectionData->rectangles[i].x () * zoom_koeff - bot_x));
+               y = int ((detectionData->rectangles[i].y () * zoom_koeff - bot_y));
+               width = int (detectionData->rectangles[i].width() * zoom_koeff);
+               height = int (detectionData->rectangles[i].height () * zoom_koeff);
 			   tmp_rect = QRect (x, y, width, height);
 
 			   painter.drawRect (tmp_rect);
 		   }
-		   else if ( colors[ i ] == 3 ) {
+           else if ( detectionData->colors[ i ] == 3 ) {
 			   painter.setPen(QColor (0, 0, 255));
-			   x = int ((rectangles[i].x () * zoom_koeff - bot_x));
-			   y = int ((rectangles[i].y () * zoom_koeff - bot_y));
-			   width = int (rectangles[i].width() * zoom_koeff);
-			   height = int (rectangles[i].height () * zoom_koeff);
+               x = int ((detectionData->rectangles[i].x () * zoom_koeff - bot_x));
+               y = int ((detectionData->rectangles[i].y () * zoom_koeff - bot_y));
+               width = int (detectionData->rectangles[i].width() * zoom_koeff);
+               height = int (detectionData->rectangles[i].height () * zoom_koeff);
 			   tmp_rect = QRect (x, y, width, height);
 
 			   painter.drawRect (tmp_rect);
@@ -150,11 +147,11 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 	  /* painter.setPen(QColor (255, 0, 0 ));
 
 	   for (int i = 0; i < size; ++i) {
-		   if ( colors[ i ] == 1 ) {
-			   x = int ((rectangles[i].x () * zoom_koeff - bot_x));
-			   y = int ((rectangles[i].y () * zoom_koeff - bot_y));
-			   width = int (rectangles[i].width() * zoom_koeff);
-			   height = int (rectangles[i].height () * zoom_koeff);
+           if ( detectionData->colors[ i ] == 1 ) {
+               x = int ((detectionData->rectangles[i].x () * zoom_koeff - bot_x));
+               y = int ((detectionData->rectangles[i].y () * zoom_koeff - bot_y));
+               width = int (detectionData->rectangles[i].width() * zoom_koeff);
+               height = int (detectionData->rectangles[i].height () * zoom_koeff);
 			   tmp_rect = QRect (x, y, width, height);
 
 			   painter.drawRect (tmp_rect);
@@ -200,18 +197,18 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
    else {
 	   painter.setPen( QColor( 0, 255, 0 ));
 
-	   unsigned int size = boundaries.size();
+       unsigned int size = detectionData->boundaries.size();
 	   int x_beg = 0, y_beg = 0,
 		   x_end = 0, y_end = 0;
 
 	   for (int i = 0; i < size; ++i) {
-		   if ( colors[ i ] == 2 ) {
-			   unsigned int bond_len = boundaries[ i ].size();
+           if ( detectionData->colors[ i ] == 2 ) {
+               unsigned int bond_len = detectionData->boundaries[ i ].size();
 			   for( unsigned int j = 0; j < bond_len; ++j ) {
-					x_beg = ( int ) (  boundaries[ i ][ j ].x() * zoom_koeff - bot_x );
-					y_beg = ( int ) (  boundaries[ i ][ j ].y() * zoom_koeff - bot_y );
-					x_end = ( int ) (  boundaries[ i ][ ( j + 1 ) % bond_len ].x() * zoom_koeff - bot_x );
-					y_end = ( int ) (  boundaries[ i ][ ( j + 1 ) % bond_len ].y() * zoom_koeff - bot_y );
+                    x_beg = ( int ) (  detectionData->boundaries[ i ][ j ].x() * zoom_koeff - bot_x );
+                    y_beg = ( int ) (  detectionData->boundaries[ i ][ j ].y() * zoom_koeff - bot_y );
+                    x_end = ( int ) (  detectionData->boundaries[ i ][ ( j + 1 ) % bond_len ].x() * zoom_koeff - bot_x );
+                    y_end = ( int ) (  detectionData->boundaries[ i ][ ( j + 1 ) % bond_len ].y() * zoom_koeff - bot_y );
 
 					painter.drawLine( x_beg, y_beg, x_end, y_end );
 			   }
@@ -344,8 +341,8 @@ void myImage :: mouseReleaseEvent (QMouseEvent *mouseEvent)
 			change_color( x_init, y_init );
 		}
         else {
-            colors.push_back( 3 );
-            rectangles.push_back (rect);
+            detectionData->colors.push_back( 3 );
+            detectionData->rectangles.push_back (rect);
         }
     }
 
@@ -401,9 +398,9 @@ void myImage :: release_rectangles()
 {
     unsigned int lines_size = lines.size();
 
-    for( unsigned int i = 0; i < rectangles.size(); ++i ) {
-        int cur_x = ( rectangles[ i ].x() + rectangles[ i ].right()) / 2,
-            cur_y = ( rectangles[ i ].y() + rectangles[ i ].bottom()) / 2;
+    for( unsigned int i = 0; i < detectionData->rectangles.size(); ++i ) {
+        int cur_x = ( detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2,
+            cur_y = ( detectionData->rectangles[ i ].y() + detectionData->rectangles[ i ].bottom()) / 2;
         QPoint cur_p = QPoint( cur_x, cur_y );
         vector< QLine > tmp_lines;
 
@@ -444,8 +441,8 @@ void myImage :: release_rectangles()
             pre_y = tmp_y;
         }
         if ( n == 0 || m  == 0 ) {
-            rectangles.erase( rectangles.begin() + i );
-            colors.erase( colors.begin() + i );
+            detectionData->rectangles.erase( detectionData->rectangles.begin() + i );
+            detectionData->colors.erase( detectionData->colors.begin() + i );
             --i;
         }
         tmp_lines.clear();
@@ -459,14 +456,14 @@ vector< QPoint >& myImage :: get_lines()
 
 void myImage :: del_rect (int x, int y)
 {
-    int len = rectangles.size ();
+    int len = detectionData->rectangles.size ();
 
     for (int i = 0; i < len; i++) {
 
-        if (x >= rectangles[i].x () &&  x <= rectangles[i].x () + rectangles[i].width ())
-            if (y >= rectangles[i].y () &&  y <= rectangles[i].y () + rectangles[i].height ()) {
-                rectangles.erase (rectangles.begin () + i);
-                colors.erase ( colors.begin () + i );
+        if (x >= detectionData->rectangles[i].x () &&  x <= detectionData->rectangles[i].x () + detectionData->rectangles[i].width ())
+            if (y >= detectionData->rectangles[i].y () &&  y <= detectionData->rectangles[i].y () + detectionData->rectangles[i].height ()) {
+                detectionData->rectangles.erase (detectionData->rectangles.begin () + i);
+                detectionData->colors.erase ( detectionData->colors.begin () + i );
                 break;
             }
     }
@@ -479,17 +476,17 @@ void myImage :: change_view()
 
 void myImage :: change_color( int x, int y )
 {
-    int len = rectangles.size ();
+    int len = detectionData->rectangles.size ();
 
     for (int i = 0; i < len; i++) {
 
-        if (x >= rectangles[i].x () &&  x <= rectangles[i].x () + rectangles[i].width ()) {
-             if (y >= rectangles[i].y () &&  y <= rectangles[i].y () + rectangles[i].height ()) {
-                 if ( colors[ i ] == 1 ) {
-                     colors[ i ] = 3;
+        if (x >= detectionData->rectangles[i].x () &&  x <= detectionData->rectangles[i].x () + detectionData->rectangles[i].width ()) {
+             if (y >= detectionData->rectangles[i].y () &&  y <= detectionData->rectangles[i].y () + detectionData->rectangles[i].height ()) {
+                 if ( detectionData->colors[ i ] == 1 ) {
+                     detectionData->colors[ i ] = 3;
                  }
                  else {
-                     colors[ i ] = 1;
+                     detectionData->colors[ i ] = 1;
                  }
                 break;
              }

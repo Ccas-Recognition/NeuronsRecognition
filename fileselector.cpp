@@ -2,12 +2,18 @@
 #include "mainwindow.h"
 #include "ui_fileselector.h"
 #include <QFileDialog>
+#include <QListWidgetItem>
 
 FileSelector::FileSelector(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FileSelector)
 {
     ui->setupUi(this);
+
+    QString q = "ImageExamples/main_image.bmp";
+
+    addFile(q);
+    processFile(q);
 }
 
 FileSelector::~FileSelector()
@@ -43,6 +49,9 @@ void FileSelector::on_actionOpen_Files_triggered()
    if( !filenames.isEmpty() )
    {
      qDebug( filenames.join(",").toAscii() );
+     for (int i=0; i< filenames.length(); i+=1) {
+        addFile(filenames[i]);
+     }
    }
 }
 
@@ -60,5 +69,30 @@ void FileSelector::on_actionChoose_file_triggered()
     QString filepath = lFileDlg->selectedFiles().at(0);
     delete lFileDlg;
 
-    if (mainWindow) mainWindow->process_file( filepath );
+    addFile(filepath);
+}
+
+void FileSelector::on_listWidget_itemActivated(QListWidgetItem *item)
+{
+    // TODO add all images in folder
+    // TODO add file for each image
+    qDebug("item");
+}
+
+void FileSelector::processFile(QString path) {
+    if (mainWindow) {
+        mainWindow->setDetectionData(& (detectionMap[path.toStdString()]));
+        mainWindow->process_file(path);
+    }
+}
+
+void FileSelector::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    processFile(current->text());
+}
+
+void FileSelector::addFile(QString path)
+{
+    ui->listWidget->addItem(path);
+    detectionMap[path.toStdString()] = DetectionData();
 }

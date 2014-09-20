@@ -14,6 +14,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QHeaderView>
+#include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
@@ -29,6 +30,7 @@ public:
     QAction *actionOpen_Files;
     QAction *actionChoose_file;
     QWidget *centralwidget;
+    QListWidget *listWidget;
     QMenuBar *menubar;
     QMenu *menuFile;
     QStatusBar *statusbar;
@@ -46,6 +48,9 @@ public:
         actionChoose_file->setObjectName(QString::fromUtf8("actionChoose_file"));
         centralwidget = new QWidget(FileSelector);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        listWidget = new QListWidget(centralwidget);
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setGeometry(QRect(10, 10, 431, 461));
         FileSelector->setCentralWidget(centralwidget);
         menubar = new QMenuBar(FileSelector);
         menubar->setObjectName(QString::fromUtf8("menubar"));

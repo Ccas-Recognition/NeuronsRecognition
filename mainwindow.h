@@ -6,6 +6,8 @@
 #include <string>
 #include "ui_mainwindow.h"
 #include "neuron_recognition.h"
+#include "DetectionData.h"
+
 
 class myImage;
 class QRect;
@@ -29,6 +31,8 @@ public:
     static int str2int( char *str_num );
     static string int2str( int num );
     void process_file ( QString );
+
+    void setDetectionData(DetectionData * data);
 private slots:
 	//Функция, реализующая выбор и загрузку изображения в программу.
     void open_file ();
@@ -53,10 +57,7 @@ private:
 
     myImage *mainImage;
     QString file_name;
-    vector< QRect > rectangles;
-	vector< QRect > old_rectangles;
-    vector< int > colors;
-	vector< vector< QPoint > > boundaries;
+    DetectionData * detectionData;
 };
 
 #endif // MAINWINDOW_H

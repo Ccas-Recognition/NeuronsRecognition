@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include "mainwindow.h"
+#include "DetectionData.h"
+#include <QListWidgetItem>
+#include <vector>
+
+using std::map;
 
 namespace Ui {
 class FileSelector;
@@ -24,9 +29,19 @@ private slots:
 
     void on_actionChoose_file_triggered();
 
+    void on_listWidget_itemActivated(QListWidgetItem *item);
+
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+protected:
+    void addFile(QString path);
+
 private:
     Ui::FileSelector *ui;
     MainWindow * mainWindow;
+    map<string, DetectionData> detectionMap;
+
+    void processFile(QString path);
 };
 
 #endif // FILESELECTOR_H

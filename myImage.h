@@ -4,6 +4,7 @@
 #include <QtGui/QWidget>
 #include <opencv2/core/core.hpp>
 #include <vector>
+#include "DetectionData.h"
 
 using namespace std;
 using namespace cv;
@@ -21,7 +22,7 @@ class myImage : public QWidget {
 
 public:
 	//Конструктор класса.
-    myImage (vector<QRect>& rects, vector<QRect>& old_rects, vector< int >& _colors, vector< vector< QPoint> >& bounds, QWidget *parent = 0);
+    myImage (QWidget *parent = 0);
 
     void setDraw ( bool );
 	//Функции, реализующие загрузку разных структур данных для вывода на главное окно приложения.
@@ -34,6 +35,10 @@ public:
 
     QImage *get_main_im ();
     QImage *get_mask_im ();
+
+    void setDetectionData(DetectionData * data) {
+        detectionData = data;
+    }
 
 signals:
     void set_rect_to_table ();
@@ -75,10 +80,7 @@ private:
     int initial_bot_x, initial_bot_y;
 
     int w, h;
-    vector<QRect>& rectangles;
-	vector<QRect>& old_rectangles;
-    vector< int >& colors;
-	vector< vector< QPoint > >& boundaries;
+    DetectionData * detectionData;
     vector< QPoint > lines;
 
     int x_initial, y_initial, x_last, y_last;

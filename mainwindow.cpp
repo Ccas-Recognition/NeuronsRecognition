@@ -24,8 +24,9 @@
 MainWindow :: MainWindow (QWidget *parent) :
     QMainWindow (parent)
 {
+    setDetectionData(NULL);
     setupUi (this);
-    mainImage = new myImage (rectangles, old_rectangles, colors, boundaries, Ui_MainWindow :: centralWidget);
+    mainImage = new myImage (Ui_MainWindow :: centralWidget);
 //	mainImage->setVisible( false );
 
     connect (actionOpen_File, SIGNAL (triggered ()), this, SLOT (open_file ()));
@@ -43,6 +44,11 @@ MainWindow :: MainWindow (QWidget *parent) :
 
     recognizer = new neuron_recognition();
     //process_file("ImageExamples/main_image.bmp"); //DEBUG
+}
+
+void MainWindow :: setDetectionData(DetectionData *data){
+   detectionData = data;
+   mainImage->setDetectionData(data);
 }
 
 MainWindow :: ~MainWindow ()
@@ -90,9 +96,9 @@ void MainWindow :: process_file( QString filepath )
     file_name = filepath;
 
     if (!file_name.isEmpty()) {
-        rectangles.clear();
-        old_rectangles.clear();
-        colors.clear();
+        detectionData->rectangles.clear();
+        detectionData->old_rectangles.clear();
+        detectionData->colors.clear();
         QString postfix = file_name;
         postfix.remove( 0, postfix.length() - 3 );
         mainImage->load_image(file_name);
@@ -127,19 +133,19 @@ void MainWindow :: save_to_file(  )
     int n = 1, m = 1;
 
     file_name = "tmp.bmp";
-    unsigned int len = rectangles.size();
+    unsigned int len = detectionData->rectangles.size();
     for( unsigned int i = 0; i < len; ++i ) {
-        if( colors[ i ] == 2 ) {
+        if( detectionData->colors[ i ] == 2 ) {
 
             QString output_file_name = dir_pos_name + "\\" + dir_pos_name + int2str( n ).c_str() + ".jpg";
-            QImage tmp_image = QImage( file_name ).copy( rectangles[ i ]).scaled( 30, 30 );
+            QImage tmp_image = QImage( file_name ).copy( detectionData->rectangles[ i ]).scaled( 30, 30 );
             tmp_image.save( output_file_name );
             ++n;
         }
         else {
 
             QString output_file_name = dir_neg_name + "\\" + dir_neg_name + int2str( m ).c_str() + ".jpg";
-            QImage tmp_image = QImage( file_name ).copy( rectangles[ i ]).scaled( 30, 30 );
+            QImage tmp_image = QImage( file_name ).copy( detectionData->rectangles[ i ]).scaled( 30, 30 );
             tmp_image.save( output_file_name );
             ++m;
         }
@@ -153,13 +159,13 @@ void MainWindow :: save_to_file(  )
 
     string out_file_name = "Neurons_coordinates\\" + tmp_name.toStdString() + '_' + date_time.currentDateTime().toString( QString( "dd_MM_yyyy" )).toStdString() + ".txt";
     ofstream OutF( out_file_name.c_str());
-    OutF << rectangles.size() << endl;
-    for ( unsigned int i = 0; i < rectangles.size(); ++i )
+    OutF << detectionData->rectangles.size() << endl;
+    for ( unsigned int i = 0; i < detectionData->rectangles.size(); ++i )
     {
-        if(colors[ i ] == 1)
+        if(detectionData->colors[ i ] == 1)
         {
-            int x = (rectangles[ i ].x() + rectangles[ i ].right()) / 2;
-            int y = (rectangles[ i ].y() + rectangles[ i ].bottom()) / 2;
+            int x = (detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2;
+            int y = (detectionData->rectangles[ i ].y() + detectionData->rectangles[ i ].bottom()) / 2;
             OutF << "coordinates : " << "x:" << x << " y:" << y << endl;
             neuron_props tmp_props = recognizer->get_props( i );
             OutF << "Area:" <<  tmp_props.area << endl;
@@ -168,10 +174,10 @@ void MainWindow :: save_to_file(  )
             OutF << "Automatic_detection: true" << endl;
             OutF << "===============================================" << endl;
         }
-        else if( colors[ i ] == 3)
+        else if( detectionData->colors[ i ] == 3)
         {
-            int x = (rectangles[ i ].x() + rectangles[ i ].right()) / 2;
-            int y = (rectangles[ i ].y() + rectangles[ i ].bottom()) / 2;
+            int x = (detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2;
+            int y = (detectionData->rectangles[ i ].y() + detectionData->rectangles[ i ].bottom()) / 2;
             OutF << "coordinates : " << "x:" << x << " y:" << y << endl;
             OutF << "Automatic_detection: false" << endl;
             OutF << "===============================================" << endl;
@@ -210,14 +216,14 @@ void MainWindow :: save_to_xls( )
     //sheet->Cell(0, 6)->SetString("Automatic Detection");
 
     unsigned int index = 1;
-    for ( unsigned int i = 0; i < rectangles.size(); ++i )
+    for ( unsigned int i = 0; i < detectionData->rectangles.size(); ++i )
     {
-        if(colors[ i ] == 1)
+        if(detectionData->colors[ i ] == 1)
         {
             sheet->Cell( index, 0)->SetInteger(index);
 
-            int x = (rectangles[ i ].x() + rectangles[ i ].right()) / 2;
-            int y = (rectangles[ i ].y() + rectangles[ i ].bottom()) / 2;
+            int x = (detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2;
+            int y = (detectionData->rectangles[ i ].y() + detectionData->rectangles[ i ].bottom()) / 2;
             sheet->Cell( index, 1)->SetInteger(x);
             sheet->Cell( index, 2)->SetInteger(y);
 
@@ -228,12 +234,12 @@ void MainWindow :: save_to_xls( )
             //sheet->Cell( index, 6)->SetString("True");
             ++index;
         }
-        else if( colors[ i ] == 3)
+        else if( detectionData->colors[ i ] == 3)
         {
             sheet->Cell( index, 0)->SetInteger(index);
 
-            int x = (rectangles[ i ].x() + rectangles[ i ].right()) / 2;
-            int y = (rectangles[ i ].y() + rectangles[ i ].bottom()) / 2;
+            int x = (detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2;
+            int y = (detectionData->rectangles[ i ].y() + detectionData->rectangles[ i ].bottom()) / 2;
             sheet->Cell( index, 1)->SetInteger(x);
             sheet->Cell( index, 2)->SetInteger(y);
 
@@ -307,7 +313,7 @@ void MainWindow :: read_data()
 	while( !hand_data.eof() ) {
 		hand_data >> x >> y >> w >> h;
 		if ( w > 0 && h > 0 ) {
-			old_rectangles.push_back( QRect( x, y, w, h ));
+            detectionData->old_rectangles.push_back( QRect( x, y, w, h ));
 		}
 	}
 
@@ -321,9 +327,9 @@ void MainWindow :: proc_image()
 {
     Mat proc_image;
     vector< Mat > neurons_samples = recognizer->recognize(( const char * )file_name.toStdString().c_str(), proc_image );
-	recognizer->sample_classify( proc_image, neurons_samples, rectangles, colors );
-	boundaries = recognizer->get_bounds();
-	//recognizer->classify( rectangles, colors );
+    recognizer->sample_classify( proc_image, neurons_samples, detectionData->rectangles, detectionData->colors );
+    detectionData->boundaries = recognizer->get_bounds();
+    //recognizer->classify( detectionData->rectangles, detectionData->colors );
 	/*string system_query = "dlls\\aFilter.exe ";
 	system_query += file_name.toStdString();
 	system( system_query.c_str() );*/
@@ -335,9 +341,9 @@ void MainWindow :: proc_image()
     }
     /* //DEBUG !!!
     ofstream outF( "/media/DATA/Repos/Matlab/Neurons/Images_test/results" );
-    for( unsigned int i = 0; i < rectangles.size(); ++i ) {
-        outF << rectangles[ i ].x() << '\t' << rectangles[ i ].y() << '\t' <<
-                rectangles[ i ].width() << '\t' << rectangles[ i ].height() << endl;
+    for( unsigned int i = 0; i < detectionData->rectangles.size(); ++i ) {
+        outF << detectionData->rectangles[ i ].x() << '\t' << detectionData->rectangles[ i ].y() << '\t' <<
+                detectionData->rectangles[ i ].width() << '\t' << detectionData->rectangles[ i ].height() << endl;
     }
 
     outF.close();*/
