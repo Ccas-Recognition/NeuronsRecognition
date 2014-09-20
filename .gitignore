@@ -64,3 +64,13 @@ $RECYCLE.BIN/
 
 #images
 bw.bmp
+
+#===========================
+#AutoGenerators
+#---------------------------
+
+Makefile*
+*.pro.user
+debug/
+release/
+*.pdb
