@@ -48,7 +48,8 @@ MainWindow :: MainWindow (QWidget *parent) :
 
 void MainWindow :: setDetectionData(DetectionData *data){
    detectionData = data;
-   mainImage->setDetectionData(data);
+   if (data != NULL)
+    mainImage->setDetectionData(data);
 }
 
 MainWindow :: ~MainWindow ()

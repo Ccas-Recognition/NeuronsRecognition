@@ -29,8 +29,6 @@ private slots:
 
     void on_actionChoose_file_triggered();
 
-    void on_listWidget_itemActivated(QListWidgetItem *item);
-
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
 protected:

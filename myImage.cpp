@@ -36,6 +36,26 @@ myImage :: myImage (QWidget *parent)
     view_mode_drag = false;
 }
 
+void myImage::setDetectionData(DetectionData *data) {
+    detectionData = data;
+
+    delete picture;
+    if (mask_image != NULL)
+       delete mask_image;
+    if (picture != main_image)
+       delete main_image;
+
+    picture = new QImage (data->filePath);
+    main_image = new QImage (data->filePath);
+
+    mask_image = new QImage (picture->width(), picture->height(), QImage :: Format_RGB32);
+    for (int i = 0; i < picture->width(); ++i)
+        for (int j = 0; j < picture->height(); ++j)
+            mask_image->setPixel (i, j, qRgb (122, 122, 122));
+
+    update();
+}
+
 QImage* myImage :: get_main_im()
 {
     return main_image;

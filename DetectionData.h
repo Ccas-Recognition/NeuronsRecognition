@@ -4,6 +4,7 @@
 #include <vector>
 #include <QRect>
 #include <QPoint>
+#include <QString>
 
 using std::vector;
 
@@ -12,6 +13,10 @@ struct DetectionData {
     vector< QRect > old_rectangles;
     vector< int > colors;
     vector< vector< QPoint > > boundaries;
+
+    QString filePath;
+
+    DetectionData(QString q=""): filePath(q) {}
 };
 
 #endif // DETECTIONDATA_H

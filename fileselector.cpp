@@ -8,6 +8,7 @@ FileSelector::FileSelector(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::FileSelector)
 {
+    mainWindow = NULL;
     ui->setupUi(this);
 }
 
@@ -20,8 +21,9 @@ void FileSelector::setMainWindow(MainWindow * w) {
     mainWindow = w;
 
     QString q = "ImageExamples/main_image.bmp";
+    QString q2 = "ImageExamples/TV244.jpg";
 
-    addFile(q);
+    addFile(q); addFile(q2);
     processFile(q);
 }
 
@@ -72,13 +74,6 @@ void FileSelector::on_actionChoose_file_triggered()
     addFile(filepath);
 }
 
-void FileSelector::on_listWidget_itemActivated(QListWidgetItem *item)
-{
-    // TODO add all images in folder
-    // TODO add file for each image
-    qDebug("item");
-}
-
 void FileSelector::processFile(QString path) {
     if (mainWindow) {
         mainWindow->setDetectionData(& (detectionMap[path.toStdString()]));
@@ -94,5 +89,5 @@ void FileSelector::on_listWidget_currentItemChanged(QListWidgetItem *current, QL
 void FileSelector::addFile(QString path)
 {
     ui->listWidget->addItem(path);
-    detectionMap[path.toStdString()] = DetectionData();
+    detectionMap[path.toStdString()] = DetectionData(path);
 }

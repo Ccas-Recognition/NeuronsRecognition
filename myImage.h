@@ -36,9 +36,7 @@ public:
     QImage *get_main_im ();
     QImage *get_mask_im ();
 
-    void setDetectionData(DetectionData * data) {
-        detectionData = data;
-    }
+    void setDetectionData(DetectionData * data);
 
 signals:
     void set_rect_to_table ();
