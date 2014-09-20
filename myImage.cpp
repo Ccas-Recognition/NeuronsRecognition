@@ -626,9 +626,9 @@ void myImage :: zoom ( float k, float pos_x, float pos_y )
         zoom_koeff = 2.0f;
         return;
     }
-    if( zoom_koeff*k < 0.1f )
+    if( zoom_koeff*k < 0.01f )
     {
-        zoom_koeff = 0.1f;
+        zoom_koeff = 0.01f;
         return;
     }
 
