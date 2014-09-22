@@ -70,8 +70,9 @@ bw.bmp
 #---------------------------
 
 Makefile*
-*.pro.user
+*.pro.user*
 debug/
 release/
 *.pdb
 dump/
+Neurons_coordinates/
