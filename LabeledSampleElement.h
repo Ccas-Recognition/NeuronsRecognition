@@ -21,12 +21,12 @@
 
 
 class LabeledSampleElement {
-    std::tr1::shared_ptr<RayFeatures> features_ptr_;
+    std::shared_ptr<RayFeatures> features_ptr_;
     bool label_;
 public:
     float weight;
     
-    LabeledSampleElement(const std::tr1::shared_ptr<RayFeatures>& features_ptr, bool label, float element_weight = 1.0f) :
+    LabeledSampleElement(const std::shared_ptr<RayFeatures>& features_ptr, bool label, float element_weight = 1.0f) :
     features_ptr_(features_ptr), label_(label), weight(element_weight) {
         
     }
@@ -44,11 +44,11 @@ public:
     }
     
     
-    std::tr1::shared_ptr<RayFeatures> features_ptr() const {
+    std::shared_ptr<RayFeatures> features_ptr() const {
         return features_ptr_;
     }
     
-    void set_features_ptr(const std::tr1::shared_ptr<RayFeatures>& features_ptr) {
+    void set_features_ptr(const std::shared_ptr<RayFeatures>& features_ptr) {
         features_ptr_ = features_ptr;
     }
     
@@ -65,7 +65,7 @@ public:
     }
 };
 
-typedef std::tr1::shared_ptr<LabeledSampleElement> LabeledSampleElement_ptr;
+typedef std::shared_ptr<LabeledSampleElement> LabeledSampleElement_ptr;
 
 class LabeledSampleElementLess : public std::binary_function<LabeledSampleElement_ptr, LabeledSampleElement_ptr, bool> {
     const RayFeatureType feature_type_;

@@ -43,7 +43,7 @@ public:
     // weights will be normalized, feature_index contains feature sorting order
     float train_with_index(std::vector<LabeledSampleElement_ptr>* training_sample_ptr, const std::vector<int>& feature_index);
     
-    bool decision(std::tr1::shared_ptr<RayFeatures> features_ptr) const;
+    bool decision(std::shared_ptr<RayFeatures> features_ptr) const;
     
     
     void write(cv::FileStorage& fs) const                        //Write serialization for this class

@@ -10,7 +10,7 @@
 #include "RayFeatureValues.h"
 
 
-RayFeatureValues& GetFeatureValuesByInd(const std::tr1::shared_ptr<RayFeatures>& features_ptr, int threshold_index, int row, int col, int angle_index) {
+RayFeatureValues& GetFeatureValuesByInd(const std::shared_ptr<RayFeatures>& features_ptr, int threshold_index, int row, int col, int angle_index) {
     
     assert((threshold_index >= 0) && (threshold_index < (*features_ptr).size()));
     assert((row >= 0) && (row < (*features_ptr)[0].size()));
@@ -21,7 +21,7 @@ RayFeatureValues& GetFeatureValuesByInd(const std::tr1::shared_ptr<RayFeatures>&
     return featureVals;
 }
 
-float GetFeatureValueByType(const std::tr1::shared_ptr<RayFeatures>& features_ptr, const RayFeatureType& feature_type) {
+float GetFeatureValueByType(const std::shared_ptr<RayFeatures>& features_ptr, const RayFeatureType& feature_type) {
     
     assert((360 % (int)(*features_ptr)[0][0][0].size()) == 0);
     

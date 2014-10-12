@@ -24,7 +24,7 @@
 using namespace std;
 using namespace cv;
 
-typedef std::tr1::shared_ptr< RayFeatures > FEATS;
+typedef std::shared_ptr< RayFeatures > FEATS;
 typedef vector< int > num_points;
 
 class convex_hull

@@ -16,9 +16,9 @@
 
 
 class RayFeaturesEvaluator {
-    std::tr1::shared_ptr<RayFeatures> features_ptr_;
+    std::shared_ptr<RayFeatures> features_ptr_;
 public:
-    RayFeaturesEvaluator(std::tr1::shared_ptr<RayFeatures> features_ptr) : features_ptr_(features_ptr) {
+    RayFeaturesEvaluator(std::shared_ptr<RayFeatures> features_ptr) : features_ptr_(features_ptr) {
     }
     
 };
