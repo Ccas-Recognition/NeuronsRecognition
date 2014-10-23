@@ -12,7 +12,7 @@
 #define M_PI 3.14159265358979323846
 
 
-void RayFeaturesPrecomputer::precompute_in_direction(const cv::Mat& grad_x, const cv::Mat& grad_y, const cv::Mat& edges, size_t threshold_ind, int direction,  std::tr1::shared_ptr<RayFeatures> features_ptr) const {
+void RayFeaturesPrecomputer::precompute_in_direction(const cv::Mat& grad_x, const cv::Mat& grad_y, const cv::Mat& edges, size_t threshold_ind, int direction,  std::shared_ptr<RayFeatures> features_ptr) const {
     cv::Mat mask = cv::Mat::zeros(edges.size(), CV_8U);
     
     cv::Rect imgRect = cv::Rect(cv::Point(0, 0), edges.size());
@@ -125,7 +125,7 @@ void RayFeaturesPrecomputer::precompute_in_direction(const cv::Mat& grad_x, cons
          
 }
 
-std::tr1::shared_ptr<RayFeatures> RayFeaturesPrecomputer::precompute(const cv::Mat& image) const {
+std::shared_ptr<RayFeatures> RayFeaturesPrecomputer::precompute(const cv::Mat& image) const {
      
      
     assert(angle_step_ % 360 != 0);
@@ -145,7 +145,7 @@ std::tr1::shared_ptr<RayFeatures> RayFeaturesPrecomputer::precompute(const cv::M
     // initialization
      
       
-    std::tr1::shared_ptr<RayFeatures> features_ptr(new RayFeatures());
+    std::shared_ptr<RayFeatures> features_ptr(new RayFeatures());
      
    
     features_ptr->resize(thresholds_.size());

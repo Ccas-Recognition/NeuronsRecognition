@@ -173,7 +173,7 @@ float DecisionStump::train_with_index(std::vector<LabeledSampleElement_ptr>* tra
 
 }
 
-bool DecisionStump::decision(std::tr1::shared_ptr<RayFeatures> features_ptr) const {
+bool DecisionStump::decision(std::shared_ptr<RayFeatures> features_ptr) const {
     float val = GetFeatureValueByType(features_ptr, this->featureType_);
     
     return (polarity_ * val < polarity_ * threshold_);

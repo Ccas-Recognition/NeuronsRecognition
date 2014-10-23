@@ -18,7 +18,7 @@
 class RayFeaturesPrecomputer {
     int angle_step_;
     std::vector<int> thresholds_;
-    void precompute_in_direction(const cv::Mat& grad_x, const cv::Mat& grad_y, const cv::Mat& edges, size_t threshold_ind, int direction,  std::tr1::shared_ptr<RayFeatures> features_ptr) const;
+    void precompute_in_direction(const cv::Mat& grad_x, const cv::Mat& grad_y, const cv::Mat& edges, size_t threshold_ind, int direction,  std::shared_ptr<RayFeatures> features_ptr) const;
 public:
     RayFeaturesPrecomputer(int angle_step = 30, const std::vector<int>& thresholds = std::vector<int>(1, 80)) : angle_step_(angle_step % 360) , thresholds_(thresholds) {
         
@@ -75,7 +75,7 @@ public:
     }
 
     
-    std::tr1::shared_ptr<RayFeatures> precompute(const cv::Mat& image) const;
+    std::shared_ptr<RayFeatures> precompute(const cv::Mat& image) const;
 };
 
 #endif /* defined(__RayFeaturesProject__RayFeaturesPrecomputer__) */

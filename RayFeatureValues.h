@@ -53,9 +53,9 @@ public:
 // treshold, row, col, angle
 typedef std::vector<std::vector<std::vector<std::vector<RayFeatureValues> > > > RayFeatures;
 
-RayFeatureValues& GetFeatureValuesByInd(const std::tr1::shared_ptr<RayFeatures>& features_ptr, int threshold_index, int row, int col, int angle_index);
+RayFeatureValues& GetFeatureValuesByInd(const std::shared_ptr<RayFeatures>& features_ptr, int threshold_index, int row, int col, int angle_index);
 
-float GetFeatureValueByType(const std::tr1::shared_ptr<RayFeatures>& features_ptr, const RayFeatureType& feature_type);
+float GetFeatureValueByType(const std::shared_ptr<RayFeatures>& features_ptr, const RayFeatureType& feature_type);
 
 
 
