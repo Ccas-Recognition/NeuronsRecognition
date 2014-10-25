@@ -9,6 +9,8 @@ int main(int argc, char *argv[])
     int start_x = 150;
     int start_y = 100;
 
+    int some = 1;
+
     QApplication a(argc, argv);
     MainWindow w;
     w.move(QPoint(start_x, start_y));
