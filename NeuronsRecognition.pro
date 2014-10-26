@@ -8,34 +8,27 @@ QT       += core gui sql
 TARGET = NeuronsRecognition
 TEMPLATE = app
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    myImage.cpp \
-    preprocessing.cpp \
-    neuron_recognition.cpp \
-    cluster.cpp \
-    gray_co_mat.cpp \
-    hog_classifier.cpp \
+SOURCES += main.cpp \
+    ClassificationEstimations.cpp \
+    ClassifierCascade.cpp \
     ann_classifier.cpp \
     convex_hull.cpp \
+    cluster.cpp \
     BoostingClassifier.cpp \
-    ClassifierCascade.cpp \
     DecisionStump.cpp \
+    gray_co_mat.cpp \
     LabeledSampleElement.cpp \
+    preprocessing.cpp \
+    neuron_recognition.cpp \
     RayFeaturesEnumerator.cpp \
     RayFeaturesEvaluator.cpp \
     RayFeaturesPrecomputer.cpp \
     RayFeatureType.cpp \
     RayFeatureValues.cpp \
-    TrainingSampleElement.cpp \
-    ExcelFormat_src/BasicExcel.cpp \
-    ExcelFormat_src/ExcelFormat.cpp \
-    fileselector.cpp
+    TrainingSampleElement.cpp
 
-HEADERS  += mainwindow.h \
-    myImage.h \
+HEADERS  += \
     neuron_recognition.h \
-    gray_co_mat.h \
     classifier.h \
     BoostingClassifier.h \
     ClassifierCascade.h \
@@ -49,11 +42,10 @@ HEADERS  += mainwindow.h \
     TrainingSampleElement.h \
     ExcelFormat_src/BasicExcel.hpp \
     ExcelFormat_src/ExcelFormat.h \
-    fileselector.h \
-    DetectionData.h
+    DetectionData.h \
+    ClassificationEstimations.h
 
-FORMS    += mainwindow.ui \
-    fileselector.ui
+FORMS    +=
 
 RESOURCES += \
     sources.qrc
