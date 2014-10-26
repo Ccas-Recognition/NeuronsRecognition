@@ -21,12 +21,16 @@ FileSelector::~FileSelector()
 void FileSelector::setMainWindow(MainWindow * w) {
     mainWindow = w;
 
-    QString q = "ImageExamples/main_image.bmp";
-    QString q2 = "ImageExamples/TV244.jpg";
+    QString q1 = "ImageExamples/TV244_part.jpg";
+    QString q2 = "ImageExamples/main_image.bmp";
+    QString q3 = "ImageExamples/TV244.jpg";
 
-    addFile(q); addFile(q2);
-    processFile(q);
-    mainWindow->process_file(q);
+    addFile(q1);
+    addFile(q2);
+    addFile(q3);
+
+    processFile(q1);
+    mainWindow->process_file(q1);
 }
 
 void FileSelector::on_actionOpen_Folder_triggered()

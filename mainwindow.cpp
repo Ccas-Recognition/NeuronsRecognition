@@ -1,4 +1,5 @@
-﻿#include "mainwindow.h"
+﻿#include "SlidingWindow.h"
+#include "mainwindow.h"
 #include "myImage.h"
 #include <QRect>
 #include <QFileDialog>
@@ -331,12 +332,21 @@ void MainWindow :: read_data()
 
 void MainWindow :: proc_image()
 {
+    Mat image = imread( file_name.toStdString(), 0 );
+    //const unsigned int sizes[] = {24, 36, 48, 60};
+    const unsigned int sizes[] = {60};
+    ImageRecognition::SlidingWindowFragmentation fragmentation( image, 60, 10, sizes );
+    ImageRecognition::ResponsePlaceholder<uchar> response;
+    Mat responseImage = fragmentation.MakeResponseImage(0, &response);
+    imwrite( "dump/response.png", responseImage );
+
+    return;
     Mat proc_image;
     vector< Mat > neurons_samples = recognizer->recognize(( const char * )file_name.toStdString().c_str(), proc_image );
     recognizer->sample_classify( proc_image, neurons_samples, detectionData->rectangles, detectionData->colors );
     detectionData->boundaries = recognizer->get_bounds();
     //recognizer->classify( detectionData->rectangles, detectionData->colors );
-	/*string system_query = "dlls\\aFilter.exe ";
+    /*string system_query = "dlls\\aFilter.exe ";
 	system_query += file_name.toStdString();
 	system( system_query.c_str() );*/
 

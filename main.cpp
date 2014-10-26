@@ -6,6 +6,9 @@
  */
 int main(int argc, char *argv[])
 {
+#if WIN32
+    system("del /Q dump");
+#endif
     int start_x = 150;
     int start_y = 100;
 

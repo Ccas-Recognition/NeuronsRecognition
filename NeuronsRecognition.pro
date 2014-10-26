@@ -50,7 +50,8 @@ HEADERS  += mainwindow.h \
     ExcelFormat_src/BasicExcel.hpp \
     ExcelFormat_src/ExcelFormat.h \
     fileselector.h \
-    DetectionData.h
+    DetectionData.h \
+    SlidingWindow.h
 
 FORMS    += mainwindow.ui \
     fileselector.ui
