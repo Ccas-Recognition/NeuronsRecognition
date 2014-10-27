@@ -9,6 +9,9 @@
 
 int main(int argc, char *argv[])
 {
+#if WIN32
+    system("del /Q dump");
+#endif
     using namespace std;
     using namespace cv;
 

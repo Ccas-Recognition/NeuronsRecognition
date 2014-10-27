@@ -97,10 +97,21 @@ int ClassificationEstimations::classify( const Mat& part )
 float ClassificationEstimations::getError( const vector<Mat> &parts, int answer )
 {
     int error_count = 0;
+
     for( unsigned int i=0; i<parts.size(); ++i )
     {
         if( classify(parts[i]) != answer )
+        {
             ++error_count;
+#if 0
+            {
+                stringstream filename;
+                filename << "dump/error_image_" << answer << "_" << error_count << ".png";
+                cout << filename.str() << endl;
+                imwrite(filename.str(), parts[i]);
+            }
+#endif
+        }
     }
     return float(error_count)/parts.size();
 }
