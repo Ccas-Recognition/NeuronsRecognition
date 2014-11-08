@@ -101,7 +101,7 @@ void MainWindow :: process_file( QString filepath )
 
     if (!file_name.isEmpty()) {
         detectionData->rectangles.clear();
-        detectionData->old_rectangles.clear();
+//        detectionData->old_rectangles.clear();
         detectionData->colors.clear();
         QString postfix = file_name;
         postfix.remove( 0, postfix.length() - 3 );
@@ -319,7 +319,7 @@ void MainWindow :: read_data()
 	while( !hand_data.eof() ) {
 		hand_data >> x >> y >> w >> h;
 		if ( w > 0 && h > 0 ) {
-            detectionData->old_rectangles.push_back( QRect( x, y, w, h ));
+//            detectionData->old_rectangles.push_back( QRect( x, y, w, h ));
 		}
 	}
 

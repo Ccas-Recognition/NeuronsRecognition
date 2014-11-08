@@ -10,7 +10,7 @@ using std::vector;
 
 struct DetectionData {
     vector< QRect > rectangles;
-    vector< QRect > old_rectangles;
+//    vector< QRect > old_rectangles;
     vector< int > colors;
     vector< vector< QPoint > > boundaries;
 

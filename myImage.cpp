@@ -81,8 +81,9 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
    painter.setPen(QColor (255, 0, 0));
 
     painter.drawImage (0, 0, def_pict);
+    return; // TODO: fix it!
 
-    int old_size = detectionData->old_rectangles.size ();
+//    int old_size = detectionData->old_rectangles.size ();
 
 	QRect tmp_rect;
 	int x = 0, y = 0;
@@ -90,7 +91,7 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 
 	painter.setPen(QColor (0, 0, 255));
 
-	for (int i = 0; i < old_size; ++i) {
+    /*for (int i = 0; i < old_size; ++i) {
         x = int ((detectionData->old_rectangles[i].x () * zoom_koeff - bot_x));
         y = int ((detectionData->old_rectangles[i].y () * zoom_koeff - bot_y));
         width = int (detectionData->old_rectangles[i].width() * zoom_koeff);
@@ -98,7 +99,7 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 		tmp_rect = QRect (x, y, width, height);
 
 		painter.drawRect (tmp_rect);
-    }
+    }*/
 
    if ( view_flag ) {
 	   if (draw_flag && limit_flag) {
