@@ -69,6 +69,9 @@ bw.bmp
 #AutoGenerators
 #---------------------------
 
+moc_*.cpp
+qrc_sources.cpp
+ui_*.h
 Makefile*
 *.pro.user*
 debug/

@@ -6,21 +6,56 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>811</width>
-    <height>607</height>
+    <width>767</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Create Samples</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QWidget" name="imageWidget" native="true">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>3</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="listWidget">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
+        </size>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>811</width>
-     <height>21</height>
+     <width>767</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOpen_File">
@@ -56,6 +91,7 @@
    <addaction name="actionRun"/>
    <addaction name="actionCulc_Stat"/>
    <addaction name="actionChange_view"/>
+   <addaction name="actionShowHide"/>
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
    <addaction name="actionExit"/>
@@ -157,11 +193,6 @@
     <string>Select Area</string>
    </property>
   </action>
-  <action name="actionSdasad">
-   <property name="text">
-    <string>sdasad</string>
-   </property>
-  </action>
   <action name="actionChange_view">
    <property name="icon">
     <iconset resource="sources.qrc">
@@ -169,6 +200,18 @@
    </property>
    <property name="text">
     <string>Change_view</string>
+   </property>
+  </action>
+  <action name="actionShowHide">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="sources.qrc">
+     <normaloff>:/new/prefix1/Icons/Eraser-icon.png</normaloff>:/new/prefix1/Icons/Eraser-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>ShowHide</string>
    </property>
   </action>
  </widget>
@@ -194,4 +237,21 @@
    </hints>
   </connection>
  </connections>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>2</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>2</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>true</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>true</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
 </ui>

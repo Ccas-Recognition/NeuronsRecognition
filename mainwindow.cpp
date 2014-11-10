@@ -26,8 +26,7 @@ MainWindow :: MainWindow (QWidget *parent) :
 {
     setDetectionData(NULL);
     setupUi (this);
-    mainImage = new myImage (Ui_MainWindow :: centralWidget);
-//	mainImage->setVisible( false );
+    mainImage = new myImage (Ui_MainWindow :: imageWidget);
 
     connect (actionOpen_File, SIGNAL (triggered ()), this, SLOT (open_file ()));
     //connect (buttonRight, SIGNAL (clicked ()), mainImage, SLOT (move_right ()));
@@ -64,8 +63,8 @@ MainWindow :: ~MainWindow ()
 
 void MainWindow :: resizeEvent (QResizeEvent *)
 {
-    int width = Ui_MainWindow :: centralWidget->width ();
-    int height = Ui_MainWindow :: centralWidget->height ();
+    int width = Ui_MainWindow :: imageWidget->width ();
+    int height = Ui_MainWindow :: imageWidget->height ();
 
     //buttonLeft->setGeometry (10, height / 2, 40, 80);
     //buttonUp->setGeometry (width / 2 - 50, 10, 80, 40);
@@ -386,4 +385,11 @@ string MainWindow :: int2str( int num )
     }
 
     return answ;
+}
+
+void MainWindow::on_actionShowHide_toggled(bool arg1)
+{
+    if (arg1) {
+        Ui_MainWindow::listWidget->hide();
+    } else Ui_MainWindow::listWidget->show();
 }

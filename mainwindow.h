@@ -42,6 +42,7 @@ private slots:
     void proc_image();
 
 	void read_data();
+    void on_actionShowHide_toggled(bool arg1);
 
 protected:
     void resizeEvent( QResizeEvent * );
