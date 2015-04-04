@@ -13,12 +13,14 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
+#include <QtGui/QListWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
+#include <QtGui/QSplitter>
 #include <QtGui/QStatusBar>
-#include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
@@ -40,9 +42,10 @@ public:
     QAction *actionSdasad;
     QAction *actionChange_view;
     QWidget *centralWidget;
-    QTabWidget *tabWidget;
-    QWidget *tab;
-    QWidget *tab_2;
+    QHBoxLayout *horizontalLayout;
+    QSplitter *splitter;
+    QWidget *imageWidget;
+    QListWidget *listWidget;
     QMenuBar *menuBar;
     QMenu *menuOpen_File;
     QMenu *menuEdit;
@@ -53,7 +56,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(811, 607);
+        MainWindow->resize(822, 658);
         actionOpen_File = new QAction(MainWindow);
         actionOpen_File->setObjectName(QString::fromUtf8("actionOpen_File"));
         QIcon icon;
@@ -111,19 +114,39 @@ public:
         actionChange_view->setIcon(icon7);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        tabWidget = new QTabWidget(centralWidget);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 520, 127, 80));
-        tab = new QWidget();
-        tab->setObjectName(QString::fromUtf8("tab"));
-        tabWidget->addTab(tab, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        tabWidget->addTab(tab_2, QString());
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(centralWidget->sizePolicy().hasHeightForWidth());
+        centralWidget->setSizePolicy(sizePolicy);
+        centralWidget->setMaximumSize(QSize(16777215, 16777215));
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        splitter = new QSplitter(centralWidget);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setEnabled(true);
+        sizePolicy.setHeightForWidth(splitter->sizePolicy().hasHeightForWidth());
+        splitter->setSizePolicy(sizePolicy);
+        splitter->setOrientation(Qt::Horizontal);
+        imageWidget = new QWidget(splitter);
+        imageWidget->setObjectName(QString::fromUtf8("imageWidget"));
+        sizePolicy.setHeightForWidth(imageWidget->sizePolicy().hasHeightForWidth());
+        imageWidget->setSizePolicy(sizePolicy);
+        splitter->addWidget(imageWidget);
+        listWidget = new QListWidget(splitter);
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy);
+        splitter->addWidget(listWidget);
+
+        horizontalLayout->addWidget(splitter);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 811, 21));
+        menuBar->setGeometry(QRect(0, 0, 822, 22));
         menuOpen_File = new QMenu(menuBar);
         menuOpen_File->setObjectName(QString::fromUtf8("menuOpen_File"));
         menuEdit = new QMenu(menuBar);
@@ -158,9 +181,6 @@ public:
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
 
-        tabWidget->setCurrentIndex(1);
-
-
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
@@ -185,8 +205,6 @@ public:
         actionCulc_Stat->setText(QApplication::translate("MainWindow", "Select Area", 0, QApplication::UnicodeUTF8));
         actionSdasad->setText(QApplication::translate("MainWindow", "sdasad", 0, QApplication::UnicodeUTF8));
         actionChange_view->setText(QApplication::translate("MainWindow", "Change_view", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Tab 1", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0, QApplication::UnicodeUTF8));
         menuOpen_File->setTitle(QApplication::translate("MainWindow", "File", 0, QApplication::UnicodeUTF8));
         menuEdit->setTitle(QApplication::translate("MainWindow", "Edit", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

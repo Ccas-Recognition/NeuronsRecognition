@@ -14,10 +14,10 @@ int main(int argc, char *argv[])
     w.move(QPoint(start_x, start_y));
     w.show();
 
-    FileSelector f;
+    /*FileSelector f;
     f.setMainWindow(&w);
     f.move(QPoint(start_x + w.width() + 30, start_y));
-    f.show();
+    f.show();*/
     
     return a.exec();
 }

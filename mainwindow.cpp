@@ -26,7 +26,7 @@ MainWindow :: MainWindow (QWidget *parent) :
 {
     setDetectionData(NULL);
     setupUi (this);
-    mainImage = new myImage (Ui_MainWindow :: centralWidget);
+    mainImage = new myImage (Ui_MainWindow :: imageWidget);
 //	mainImage->setVisible( false );
 
     connect (actionOpen_File, SIGNAL (triggered ()), this, SLOT (open_file ()));
@@ -64,15 +64,15 @@ MainWindow :: ~MainWindow ()
 
 void MainWindow :: resizeEvent (QResizeEvent *)
 {
-    int width = Ui_MainWindow :: centralWidget->width ();
-    int height = Ui_MainWindow :: centralWidget->height ();
+    /*int width = Ui_MainWindow :: imageWidget->width ();
+    int height = Ui_MainWindow :: imageWidget->height ();
 
     //buttonLeft->setGeometry (10, height / 2, 40, 80);
     //buttonUp->setGeometry (width / 2 - 50, 10, 80, 40);
     //buttonDown->setGeometry (width / 2 - 50, height - 42, 80, 40);
     //buttonRight->setGeometry (width - 80, height / 2, 40, 80);
 
-    mainImage->setGeometry(0, 0, width, height);
+    mainImage->setGeometry(0, 0, width, height);*/
 }
 
 //______________________SLOTS______________________//
