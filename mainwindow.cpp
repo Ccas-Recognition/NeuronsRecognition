@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <opencv2/core/core.hpp>
+#include <QDirIterator>
 
 
 #define linear_size 0.01859358
@@ -26,7 +27,7 @@ MainWindow :: MainWindow (QWidget *parent) :
 {
     setDetectionData(NULL);
     setupUi (this);
-    mainImage = new myImage (Ui_MainWindow :: centralWidget);
+    mainImage = new myImage (Ui_MainWindow :: imageWidget);
 //	mainImage->setVisible( false );
 
     connect (actionOpen_File, SIGNAL (triggered ()), this, SLOT (open_file ()));
@@ -43,7 +44,10 @@ MainWindow :: MainWindow (QWidget *parent) :
     mainImage->setFocus();
 
     recognizer = new neuron_recognition();
+
     //process_file("ImageExamples/main_image.bmp"); //DEBUG
+
+
 }
 
 void MainWindow :: setDetectionData(DetectionData *data){
@@ -64,8 +68,8 @@ MainWindow :: ~MainWindow ()
 
 void MainWindow :: resizeEvent (QResizeEvent *)
 {
-    int width = Ui_MainWindow :: centralWidget->width ();
-    int height = Ui_MainWindow :: centralWidget->height ();
+    int width = Ui_MainWindow :: imageWidget->width ();
+    int height = Ui_MainWindow :: imageWidget->height ();
 
     //buttonLeft->setGeometry (10, height / 2, 40, 80);
     //buttonUp->setGeometry (width / 2 - 50, 10, 80, 40);
@@ -78,9 +82,29 @@ void MainWindow :: resizeEvent (QResizeEvent *)
 //______________________SLOTS______________________//
 
 
+void MainWindow::addFile(QString path) {
+    Ui_MainWindow::listWidget->addItem(path);
+    detectionMap[path.toStdString()] = DetectionData(path);
+}
+
 void MainWindow :: open_file ()
 {
-    QFileDialog* lFileDlg  = new QFileDialog (NULL);
+    QStringList filenames = QFileDialog::getOpenFileNames(
+           this,
+           tr("Open Images"),
+           QDir::currentPath(),
+           tr("Image Files (*.png *.bmp *.jpg)") );
+
+   if( !filenames.isEmpty() )
+   {
+     qDebug( filenames.join(",").toAscii() );
+     for (int i=0; i< filenames.length(); i+=1) {
+         addFile(filenames[i]);
+     }
+   }
+
+
+    /*QFileDialog* lFileDlg  = new QFileDialog (NULL);
     lFileDlg->setOptions(0);
     lFileDlg->setWindowTitle(tr("Open image"));
     lFileDlg->setFilter(tr("Image Files (*.png *.bmp *.jpg)"));
@@ -90,9 +114,9 @@ void MainWindow :: open_file ()
         return;
     }
     QString filepath = lFileDlg->selectedFiles().at(0);
-    delete lFileDlg;
+    delete lFileDlg;*/
 
-    process_file( filepath );
+    //process_file( filepath );
 }
 
 void MainWindow :: process_file( QString filepath )
@@ -316,12 +340,12 @@ void MainWindow :: read_data()
 	ifstream hand_data(( const char *)tmp_name.toStdString().c_str());
 
 	int x = 0, y = 0, h = 0, w = 0;
-	while( !hand_data.eof() ) {
+    while( !hand_data.eof() ) {
 		hand_data >> x >> y >> w >> h;
 		if ( w > 0 && h > 0 ) {
             detectionData->old_rectangles.push_back( QRect( x, y, w, h ));
 		}
-	}
+    }
 
 	/*Mat proc_image;
     vector< Mat > neurons_samples = recognizer->recognize(( const char * )file_name.toStdString().c_str(), proc_image );
@@ -386,4 +410,33 @@ string MainWindow :: int2str( int num )
     }
 
     return answ;
+}
+
+void MainWindow::on_actionOpen_folder_triggered()
+{
+    QString dirname = QFileDialog::getExistingDirectory(
+            this,
+            tr("Select a Directory"),
+            QDir::currentPath() );
+
+    if( !dirname.isNull() )
+    {
+        QDirIterator it(dirname, QStringList() << "*.jpg" << "*.png" << "*.bmp", QDir::Files, QDirIterator::Subdirectories);
+        while (it.hasNext()) {
+            addFile(it.next());
+            // qDebug() << it.next();
+        }
+      // qDebug( dirname.toAscii() );
+    }
+}
+
+void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    QString path = current->text();
+    setDetectionData(& (detectionMap[path.toStdString()]));
+}
+
+void MainWindow::on_splitter_splitterMoved(int pos, int index)
+{
+    resizeEvent(NULL);
 }

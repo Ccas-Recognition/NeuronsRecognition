@@ -13,7 +13,48 @@
   <property name="windowTitle">
    <string>Create Samples</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="imageWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>600</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="listWidget">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>0</height>
+        </size>
+       </property>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -28,6 +69,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen_File"/>
+    <addaction name="actionOpen_folder"/>
     <addaction name="actionSave_File"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -67,7 +109,7 @@
      <normaloff>:/new/prefix1/Icons/fileopen.png</normaloff>:/new/prefix1/Icons/fileopen.png</iconset>
    </property>
    <property name="text">
-    <string>Open File</string>
+    <string>Open Files</string>
    </property>
   </action>
   <action name="actionSave_File">
@@ -157,11 +199,6 @@
     <string>Select Area</string>
    </property>
   </action>
-  <action name="actionSdasad">
-   <property name="text">
-    <string>sdasad</string>
-   </property>
-  </action>
   <action name="actionChange_view">
    <property name="icon">
     <iconset resource="sources.qrc">
@@ -169,6 +206,21 @@
    </property>
    <property name="text">
     <string>Change_view</string>
+   </property>
+  </action>
+  <action name="actionOpen_folder">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="sources.qrc">
+     <normaloff>:/new/prefix1/Icons/box_open.png</normaloff>:/new/prefix1/Icons/box_open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Open all images inside folder</string>
    </property>
   </action>
  </widget>

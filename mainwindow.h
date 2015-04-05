@@ -43,6 +43,13 @@ private slots:
 
 	void read_data();
 
+    void on_actionOpen_folder_triggered();
+
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_splitter_splitterMoved(int pos, int index);
+
+    void addFile(QString path);
 protected:
     void resizeEvent( QResizeEvent * );
     void keyPressEvent(QKeyEvent *keyevent);
@@ -52,6 +59,7 @@ protected:
     void save_to_xls( );
 private:
     Ui :: MainWindow *ui;
+    map<string, DetectionData> detectionMap;
 
     neuron_recognition *recognizer;
 

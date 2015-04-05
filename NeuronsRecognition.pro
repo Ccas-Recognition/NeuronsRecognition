@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += gui declarative sql
 TARGET = NeuronsRecognition
 TEMPLATE = app
 
