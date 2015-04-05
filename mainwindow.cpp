@@ -434,6 +434,8 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 {
     QString path = current->text();
     setDetectionData(& (detectionMap[path.toStdString()]));
+
+    setFocus();
 }
 
 void MainWindow::on_splitter_splitterMoved(int pos, int index)
