@@ -45,9 +45,11 @@ MainWindow :: MainWindow (QWidget *parent) :
 
     recognizer = new neuron_recognition();
 
-    //process_file("ImageExamples/main_image.bmp"); //DEBUG
+    QString s = "ImageExamples/main_image.bmp";
+    addFile(s);
 
-
+    setDetectionData(& (detectionMap[s.toStdString()]));
+    process_file(s); //DEBUG//
 }
 
 void MainWindow :: setDetectionData(DetectionData *data){
@@ -439,6 +441,12 @@ void MainWindow::on_listWidget_currentItemChanged(QListWidgetItem *current, QLis
 }
 
 void MainWindow::on_splitter_splitterMoved(int pos, int index)
+{
+    resizeEvent(NULL);
+    //mainImage->paintEvent(NULL);
+}
+
+void MainWindow::updateImage()
 {
     resizeEvent(NULL);
 }

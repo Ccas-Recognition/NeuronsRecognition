@@ -97,10 +97,10 @@ private:
     static double vect_prod( QPoint , QPoint , QPoint );
     void release_rectangles();
 
-protected:
+public:
     void paintEvent (QPaintEvent *paintEvent);
     void resizeEvent (QResizeEvent *);
-
+protected:
     void mousePressEvent (QMouseEvent *mouseEvent);
     void mouseDoubleClickEvent( QMouseEvent *mouseEvent );
     void mouseReleaseEvent (QMouseEvent *mouseEvent);

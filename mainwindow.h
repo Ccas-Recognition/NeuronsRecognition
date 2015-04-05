@@ -31,6 +31,7 @@ public:
     static int str2int( char *str_num );
     static string int2str( int num );
     void process_file ( QString );
+    void updateImage();
 
     void setDetectionData(DetectionData * data);
 private slots:

@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <cmath>
 #include <fstream>
+#include <iostream>
 
 myImage :: myImage (QWidget *parent)
     : QWidget (parent), x (100), y (100), draw_flag (false), limit_flag (true), view_flag( true ),
@@ -83,7 +84,7 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
    painter.setPen(QColor (255, 0, 0));
 
     painter.drawImage (0, 0, def_pict);
-
+    //std::cout << "Height: " << def_pict.height() << endl;
     if(detectionData == 0)
         return;
 

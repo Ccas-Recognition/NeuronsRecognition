@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.move(QPoint(start_x, start_y));
     w.show();
-    
+    w.updateImage();
     return a.exec();
 }
