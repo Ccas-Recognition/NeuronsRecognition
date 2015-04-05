@@ -68,7 +68,7 @@ vector< Mat >& neuron_recognition :: recognize( const char *input_file, Mat &pro
 	main_image = imread( input_file, 0 );
     if ( type == 1 ) {
 		clusters = proc->get_conn( input_file, proc_image );
-        imwrite( "bw.bmp", proc_image );
+        //imwrite( "bw.bmp", proc_image );
 	}
 	else if ( type == 2 ) {
 		//proc->do_prep( input_file, proc_image );

@@ -58,15 +58,15 @@ void preprocessing :: do_prep( const char *image_name, Mat& output_image )
 	load_image( image_name );
 	unsharped_mask( output_image );
 	close_reconstruction( output_image );
-    imwrite( "proc_image1.bmp", output_image );
+    //imwrite( "proc_image1.bmp", output_image );
     thresholding( output_image );
-    imwrite( "proc_image2.bmp", output_image );
+    //imwrite( "proc_image2.bmp", output_image );
 	Mat se = getStructuringElement( cv :: MORPH_ELLIPSE, cv :: Size( 5, 5 ));
 	erode ( output_image, output_image, se );
-    imwrite( "proc_image3.bmp", output_image );
+    //imwrite( "proc_image3.bmp", output_image );
 	dilate( output_image, output_image, se );
-    imwrite( "proc_image4.bmp", output_image );
-	imwrite( "bw.bmp", output_image );
+    //imwrite( "proc_image4.bmp", output_image );
+    //imwrite( "bw.bmp", output_image );
 }
 
 bool preprocessing :: check_diff( Mat &proc_image, int x, int y, int direction )
