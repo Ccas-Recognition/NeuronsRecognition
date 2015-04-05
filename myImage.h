@@ -79,7 +79,6 @@ private:
 
     int w, h;
     DetectionData * detectionData;
-    vector< QPoint > lines;
 
     int x_initial, y_initial, x_last, y_last;
 

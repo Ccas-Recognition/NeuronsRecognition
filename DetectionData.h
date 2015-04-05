@@ -13,6 +13,7 @@ struct DetectionData {
     vector< QRect > old_rectangles;
     vector< int > colors;
     vector< vector< QPoint > > boundaries;
+    vector< QPoint > lines;
 
     QString filePath;
 

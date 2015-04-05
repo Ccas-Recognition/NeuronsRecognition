@@ -17,7 +17,7 @@
 
 myImage :: myImage (QWidget *parent)
     : QWidget (parent), x (100), y (100), draw_flag (false), limit_flag (true), view_flag( true ),
-      x_initial (0), y_initial (0), zoom_koeff (1.0), bot_x (0), bot_y (0), r (0), g (0), b (0)
+      x_initial (400), y_initial (400), zoom_koeff (1.0), bot_x (0), bot_y (0), r (0), g (0), b (0)
 {
     picture = new QImage ("bloody.bmp");
 
@@ -190,33 +190,33 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
 
 	   painter.setPen( QColor( 0, 0, 255 ));
 
-	   unsigned int lines_size = lines.size();
+       unsigned int lines_size = detectionData->lines.size();
 	   QPoint beg_point, end_point;
 
 	   for( unsigned int i = 0; i < lines_size; ++i ) {
 		   if ( i < lines_size - 1 ) {
-			   x = ( int ) ( lines[ i ].x() * zoom_koeff - bot_x );
-			   y = ( int ) ( lines[ i ].y() * zoom_koeff - bot_y );
+               x = ( int ) ( detectionData->lines[ i ].x() * zoom_koeff - bot_x );
+               y = ( int ) ( detectionData->lines[ i ].y() * zoom_koeff - bot_y );
 			   beg_point = QPoint( x, y );
-			   x = ( int ) ( lines[ i + 1 ].x() * zoom_koeff - bot_x );
-			   y = ( int ) ( lines[ i + 1 ].y() * zoom_koeff - bot_y );
+               x = ( int ) ( detectionData->lines[ i + 1 ].x() * zoom_koeff - bot_x );
+               y = ( int ) ( detectionData->lines[ i + 1 ].y() * zoom_koeff - bot_y );
 			   end_point = QPoint( x, y );
 			   painter.drawLine( beg_point, end_point );
 		   }
 		   else {
 			   if ( !limit_flag ) {
-				   x = ( int ) ( lines[ i ].x() * zoom_koeff - bot_x );
-				   y = ( int ) ( lines[ i ].y() * zoom_koeff - bot_y );
+                   x = ( int ) ( detectionData->lines[ i ].x() * zoom_koeff - bot_x );
+                   y = ( int ) ( detectionData->lines[ i ].y() * zoom_koeff - bot_y );
 				   beg_point = QPoint( x, y );
 				   end_point = QPoint( x_last, y_last );
 				   painter.drawLine( beg_point, end_point );
 			   }
 			   else {
-				   x = ( int ) ( lines[ i ].x() * zoom_koeff - bot_x );
-				   y = ( int ) ( lines[ i ].y() * zoom_koeff - bot_y );
+                   x = ( int ) ( detectionData->lines[ i ].x() * zoom_koeff - bot_x );
+                   y = ( int ) ( detectionData->lines[ i ].y() * zoom_koeff - bot_y );
 				   beg_point = QPoint( x, y );
-				   x = ( int ) ( lines[ 0 ].x() * zoom_koeff - bot_x );
-				   y = ( int ) ( lines[ 0 ].y() * zoom_koeff - bot_y );
+                   x = ( int ) ( detectionData->lines[ 0 ].x() * zoom_koeff - bot_x );
+                   y = ( int ) ( detectionData->lines[ 0 ].y() * zoom_koeff - bot_y );
 				   end_point = QPoint( x, y );
 				   painter.drawLine( beg_point, end_point );
 			   }
@@ -317,7 +317,7 @@ void myImage :: mousePressEvent (QMouseEvent* mouseEvent)
 
     if (!limit_flag) {
         if( mouseEvent->button() == Qt :: LeftButton ) {
-            lines.push_back( QPoint( x_init, y_init ));
+            detectionData->lines.push_back( QPoint( x_init, y_init ));
         }
         else {
             limit_flag = !limit_flag;
@@ -425,7 +425,7 @@ double myImage :: vect_prod( QPoint p1, QPoint p2, QPoint cur_p )
 
 void myImage :: release_rectangles()
 {
-    unsigned int lines_size = lines.size();
+    unsigned int lines_size = detectionData->lines.size();
 
     for( unsigned int i = 0; i < detectionData->rectangles.size(); ++i ) {
         int cur_x = ( detectionData->rectangles[ i ].x() + detectionData->rectangles[ i ].right()) / 2,
@@ -435,13 +435,13 @@ void myImage :: release_rectangles()
 
         for( unsigned int j = 0; j < lines_size; ++j ) {
             if ( j < lines_size - 1  ) {
-                if((cur_x >= lines[ j ].x() && cur_x <= lines[ j + 1 ].x()) || (cur_x <= lines[ j ].x() && cur_x >= lines[ j + 1 ].x())) {
-                    tmp_lines.push_back( QLine( lines[ j ], lines[ j + 1 ]));
+                if((cur_x >= detectionData->lines[ j ].x() && cur_x <= detectionData->lines[ j + 1 ].x()) || (cur_x <= detectionData->lines[ j ].x() && cur_x >= detectionData->lines[ j + 1 ].x())) {
+                    tmp_lines.push_back( QLine( detectionData->lines[ j ], detectionData->lines[ j + 1 ]));
                 }
             }
             else {
-                if(( cur_x >= lines[ j ].x() && cur_x <= lines[ 0 ].x()) || ( cur_x <= lines[ j ].x() && cur_x >= lines[ 0 ].x())) {
-                    tmp_lines.push_back( QLine( lines[ j ], lines[ 0 ]));
+                if(( cur_x >= detectionData->lines[ j ].x() && cur_x <= detectionData->lines[ 0 ].x()) || ( cur_x <= detectionData->lines[ j ].x() && cur_x >= detectionData->lines[ 0 ].x())) {
+                    tmp_lines.push_back( QLine( detectionData->lines[ j ], detectionData->lines[ 0 ]));
                 }
             }
         }
@@ -480,7 +480,7 @@ void myImage :: release_rectangles()
 
 vector< QPoint >& myImage :: get_lines()
 {
-    return lines;
+    return detectionData->lines;
 }
 
 void myImage :: del_rect (int x, int y)
@@ -531,7 +531,7 @@ void myImage :: load_image (QString& file_name) {
      if (picture != main_image)
         delete main_image;
 
-     lines.clear();
+     detectionData->lines.clear();
 
      picture = new QImage (file_name);
      main_image = new QImage (file_name);
