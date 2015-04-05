@@ -45,11 +45,12 @@ MainWindow :: MainWindow (QWidget *parent) :
 
     recognizer = new neuron_recognition();
 
-    QString s = "ImageExamples/main_image.bmp";
-    addFile(s);
+    //DEBUG//
+//    QString s = "ImageExamples/main_image.bmp";
+//    addFile(s);
 
-    setDetectionData(& (detectionMap[s.toStdString()]));
-    process_file(s); //DEBUG//
+//    setDetectionData(& (detectionMap[s.toStdString()]));
+//    process_file(s);
 }
 
 void MainWindow :: setDetectionData(DetectionData *data){
