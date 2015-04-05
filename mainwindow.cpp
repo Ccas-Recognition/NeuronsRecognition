@@ -451,3 +451,14 @@ void MainWindow::updateImage()
 {
     resizeEvent(NULL);
 }
+
+void MainWindow::on_actionFolder_detection_triggered()
+{
+    for(auto it=detectionMap.begin();it != detectionMap.end(); ++it)
+    {
+        QString s = QString::fromUtf8((*it).first.c_str());
+        setDetectionData(& (detectionMap[s.toStdString()]));
+        process_file(s);
+        proc_image();
+    }
+}

@@ -51,6 +51,8 @@ private slots:
     void on_splitter_splitterMoved(int pos, int index);
 
     void addFile(QString path);
+    void on_actionFolder_detection_triggered();
+
 protected:
     void resizeEvent( QResizeEvent * );
     void keyPressEvent(QKeyEvent *keyevent);
