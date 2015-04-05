@@ -29,8 +29,7 @@ SOURCES += main.cpp\
     RayFeatureValues.cpp \
     TrainingSampleElement.cpp \
     ExcelFormat_src/BasicExcel.cpp \
-    ExcelFormat_src/ExcelFormat.cpp \
-    fileselector.cpp
+    ExcelFormat_src/ExcelFormat.cpp
 
 HEADERS  += mainwindow.h \
     myImage.h \
@@ -49,11 +48,9 @@ HEADERS  += mainwindow.h \
     TrainingSampleElement.h \
     ExcelFormat_src/BasicExcel.hpp \
     ExcelFormat_src/ExcelFormat.h \
-    fileselector.h \
     DetectionData.h
 
-FORMS    += mainwindow.ui \
-    fileselector.ui
+FORMS    += mainwindow.ui
 
 RESOURCES += \
     sources.qrc

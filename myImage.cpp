@@ -34,6 +34,8 @@ myImage :: myImage (QWidget *parent)
 
     view_mode_on = false;
     view_mode_drag = false;
+
+    detectionData = 0;
 }
 
 void myImage::setDetectionData(DetectionData *data) {
@@ -81,6 +83,9 @@ void myImage :: paintEvent (QPaintEvent *paintEvent)
    painter.setPen(QColor (255, 0, 0));
 
     painter.drawImage (0, 0, def_pict);
+
+    if(detectionData == 0)
+        return;
 
     int old_size = detectionData->old_rectangles.size ();
 
